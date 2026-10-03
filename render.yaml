@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: crm-service
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: crm-db
+          property: connectionString
+      - key: BOT_MODE
+        value: webhook
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: BOT_SERVICES
+        value: Сайт,Реклама,SMM,Дизайн,Другое
+
+databases:
+  - name: crm-db
+    plan: free
+    region: frankfurt
+    databaseName: crm
+    user: crm
