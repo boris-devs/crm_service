@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini CRM</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">◆</span> Mini CRM</div>
+    <input id="search" class="search" type="search" placeholder="Поиск по имени, контакту, запросу…">
+    <button id="new-lead-btn" class="btn primary">+ Новый лид</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <section>
+        <h3>Лиды</h3>
+        <ul class="nav" id="tag-nav"></ul>
+      </section>
+      <section>
+        <h3>Новый тег</h3>
+        <form id="tag-form" class="tag-form">
+          <input name="name" placeholder="Название" maxlength="50" required>
+          <input name="color" type="color" value="#6366f1" title="Цвет">
+          <button class="btn small">Добавить</button>
+        </form>
+      </section>
+    </aside>
+
+    <main class="content">
+      <div class="filters">
+        <h2 id="list-title">Все лиды</h2>
+        <div class="filter-controls">
+          <select id="source-filter">
+            <option value="">Все источники</option>
+          </select>
+          <select id="status-filter">
+            <option value="">Все статусы</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="leads">
+          <thead>
+            <tr><th>Лид</th><th>Запрос</th><th>Источник</th><th>Статус</th><th>Теги</th><th>Создан</th></tr>
+          </thead>
+          <tbody id="leads-body"></tbody>
+        </table>
+        <p id="empty" class="empty" hidden>Лидов пока нет. Напишите боту или добавьте лида вручную.</p>
+      </div>
+    </main>
+  </div>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 id="drawer-title">Лид</h2>
+      <button class="icon-btn" data-close-drawer aria-label="Закрыть">✕</button>
+    </div>
+    <div id="drawer-body" class="drawer-body"></div>
+  </aside>
+  <div id="backdrop" class="backdrop" data-close-drawer></div>
+
+  <dialog id="lead-dialog">
+    <form id="lead-form" method="dialog">
+      <h2>Новый лид</h2>
+      <label>Имя<input name="name" required maxlength="255"></label>
+      <label>Контакт<input name="contact" maxlength="255" placeholder="Телефон, email или @username"></label>
+      <label>Запрос<textarea name="request" rows="4"></textarea></label>
+      <div class="field-label">Теги</div>
+      <div id="lead-form-tags" class="tag-picker"></div>
+      <div class="dialog-actions">
+        <button type="button" class="btn" data-close-dialog>Отмена</button>
+        <button type="submit" class="btn primary">Создать</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
